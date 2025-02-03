@@ -13,5 +13,7 @@
 				"vmware.vscode-boot-dev-pack"
 			]
 		}
-	}
+	},
+
+	"remoteUser": "root"
 }
