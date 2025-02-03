@@ -20,14 +20,14 @@ public class AppServiceimpl implements AppService {
     private final FileService fileService;
     private final JdkService jdkService;
 
-    public String runJavaFile(String code) {
+    public String runJavaFile(String code, String className ) {
         try {
             Path tempDir = Files.createTempDirectory("java-file");
             // create src directory
             Path srcDir = Files.createDirectory(tempDir.resolve("src"));
             Path tempFile = Files.createTempFile(srcDir, "Main", ".java");
+            tempFile = Files.move(tempFile, srcDir.resolve(className + ".java"));
             Files.write(tempFile, code.getBytes());
-            System.out.println("Java file saved to: " + tempFile);
 
             // Compile the Java file
             boolean compileSuccess = jdkService.compileJavaProject(tempDir);
@@ -37,6 +37,8 @@ public class AppServiceimpl implements AppService {
 
             // Find the main class
             String mainClassName = jdkService.findMainClass(tempDir);
+
+            System.out.println("Main class: " + mainClassName);
 
             // Run the Java file
             String output = jdkService.runJavaProject(tempDir, mainClassName);

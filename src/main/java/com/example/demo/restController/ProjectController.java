@@ -28,8 +28,8 @@ public class ProjectController {
     }
 
     @PostMapping("/run")
-    public ResponseEntity<String> runJavaCode(@RequestParam("code") String code) {
-        return ResponseEntity.ok(appService.runJavaFile(code));
+    public ResponseEntity<String> runJavaCode(@RequestParam("code") String code, @RequestParam("className") String className) {
+        return ResponseEntity.ok(appService.runJavaFile(code,className));
     }
 
 

@@ -27,14 +27,15 @@ public class JdkServiceImpl implements JdkService {
                 .filter(path -> {
                     try {
                         return Files.readAllLines(path).stream()
-                                .anyMatch(line -> line.contains("public static void main(String[] args)"));
+                                .anyMatch(line -> line.contains("main(String[] args)"));
                     } catch (IOException e) {
+                        System.out.println("error : " + e.getMessage());
+                        // e.printStackTrace();/
                         return false;
                     }
                 })
                 .map(path -> projectDir.relativize(path).toString()
                         .replace(".java", "")
-                        // .replace(File.separator, "."))
 				)
                 .findFirst()
                 .orElse(null);
@@ -88,9 +89,11 @@ public class JdkServiceImpl implements JdkService {
         // extract className after src
         mainClassName = mainClassName.substring(mainClassName.indexOf("src") + 4);
 
+        System.out.println("Main class name: " + mainClassName);
         // Include the project directory and any JAR files in the classpath
+        String classpath = projectDir.toString() + "/src" +File.pathSeparator + "bin";
 
-        ProcessBuilder processBuilder = new ProcessBuilder("java", "-cp", "bin", mainClassName);
+        ProcessBuilder processBuilder = new ProcessBuilder("java", "-cp", classpath, mainClassName);
         processBuilder.directory(projectDir.toFile());
         processBuilder.redirectErrorStream(true);
 
