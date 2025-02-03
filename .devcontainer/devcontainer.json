@@ -1,0 +1,17 @@
+{
+	"image": "gradle:jdk23-alpine",
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"ryanluker.vscode-coverage-gutters",
+				"donjayamanne.git-extension-pack",
+				"nhoizey.gremlins",
+				"vmware.vscode-boot-dev-pack"
+			]
+		}
+	}
+}
