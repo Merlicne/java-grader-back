@@ -9,5 +9,5 @@ COPY src /app/src
 
 RUN gradle build
 
-CMD ["gradle", "run"]
+CMD ["gradle", "bootRun"]
 
